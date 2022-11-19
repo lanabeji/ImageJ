@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea622869-46b8-4393-90cd-9648e309f57a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/ij/gui/HistogramPlot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/HistogramPlot.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/gui/HistogramWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/HistogramWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/gui/Roi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/Roi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/io/SaveDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/io/SaveDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/plugin/StackCombiner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/StackCombiner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/ByteProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/ByteProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/ShortProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/ShortProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/StackConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/StackConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlanEstudios.sonargraph/Settings/Developers.properties" beforeDir="false" afterPath="$PROJECT_DIR$/PlanEstudios.sonargraph/Settings/Developers.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/plugin/Slicer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/Slicer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/process/AutoThresholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/AutoThresholder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ij/plugin/Slicer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ij/plugin/Slicer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ij/process/AutoThresholder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/ij/process/AutoThresholder.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,6 +61,7 @@
       <workItem from="1668798003727" duration="599000" />
       <workItem from="1668800633782" duration="5969000" />
       <workItem from="1668866909771" duration="7153000" />
+      <workItem from="1668880916323" duration="1432000" />
     </task>
     <servers />
   </component>

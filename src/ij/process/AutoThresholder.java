@@ -478,23 +478,13 @@ public class AutoThresholder {
 			P2[ih]= 1.0 - P1[ih];
 		}
 
+
 		/* Determine the first non-zero bin */
-		first_bin=0;
-		for (ih = 0; ih < 256; ih++ ) {
-			if ( !(Math.abs(P1[ih])<2.220446049250313E-16)) {
-				first_bin = ih;
-				break;
-			}
-		}
+		first_bin = lastNonZeroBin(0,P2);
 
 		/* Determine the last non-zero bin */
-		last_bin=255;
-		for (ih = 255; ih >= first_bin; ih-- ) {
-			if ( !(Math.abs(P2[ih])<2.220446049250313E-16)) {
-				last_bin = ih;
-				break;
-			}
-		}
+		last_bin=lastNonZeroBin(255,P2);
+
 
 		// Calculate the total entropy each gray-level
 		// and find the threshold that maximizes it 
@@ -1001,6 +991,18 @@ public class AutoThresholder {
 		return opt_threshold;
 	}
 
+	int lastNonZeroBin(int first_bin,double [] P2) {
+		/* Determine the last non-zero bin */
+		int last_bin = 255;
+		int ih = 255;
+		for (ih = 255; ih >= first_bin; ih--) {
+			if (!(Math.abs(P2[ih]) < 2.220446049250313E-16)) {
+				last_bin = ih;
+				break;
+			}
+		}
+		return last_bin;
+	}
 
 	int Shanbhag(int [] data ) {
 		// Shanhbag A.G. (1994) "Utilization of Information Measure as a Means of
@@ -1034,22 +1036,11 @@ public class AutoThresholder {
 		}
 
 		/* Determine the first non-zero bin */
-		first_bin=0;
-		for (ih = 0; ih < 256; ih++ ) {
-			if ( !(Math.abs(P1[ih])<2.220446049250313E-16)) {
-				first_bin = ih;
-				break;
-			}
-		}
+		first_bin = lastNonZeroBin(0,P2);
 
 		/* Determine the last non-zero bin */
-		last_bin=255;
-		for (ih = 255; ih >= first_bin; ih-- ) {
-			if ( !(Math.abs(P2[ih])<2.220446049250313E-16)) {
-				last_bin = ih;
-				break;
-			}
-		}
+		last_bin=lastNonZeroBin(255,P2);
+
 
 		// Calculate the total entropy each gray-level
 		// and find the threshold that maximizes it 
