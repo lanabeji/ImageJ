@@ -3,7 +3,7 @@ package ij.process;
 import java.util.*;
 import java.awt.*;
 import java.awt.image.*;
-import ij.gui.*;
+
 import ij.Prefs;
 
 /**
@@ -160,7 +160,12 @@ public class ByteProcessor extends ImageProcessor {
 		byte[] pixels2 = (byte[])ip2.getPixels(); 
 		System.arraycopy(pixels, 0, pixels2, 0, width*height); 
 		return ip2; 
-	} 
+	}
+
+	@Override
+	public void scale(double xScale, double yScale) {
+
+	}
 
 	/**Make a snapshot of the current image.*/
 	public void snapshot() {
@@ -291,16 +296,18 @@ public class ByteProcessor extends ImageProcessor {
 			if (x>=width-1.0) x = width-1.001;
 			if (y<0.0) y = 0.0;
 			if (y>=height-1.0) y = height-1.001;
-			return getInterpolatedPixel(x, y, pixels);
+			return getInterpolatedPixelRef(x, y, pixels);
 		}
+	}
+
+	private double getInterpolatedPixelRef(double x, double y, byte[] pixels) {
+		return getPixelInterpolated(x,y);
 	}
 
 	final public int getPixelInterpolated(double x, double y) {
 		if (interpolationMethod==BILINEAR) {
 			if (x<0.0 || y<0.0 || x>=width-1 || y>=height-1)
 				return 0;
-			else
-				return (int)Math.round(getInterpolatedPixel(x, y, pixels));
 		} else if (interpolationMethod==BICUBIC) {
 			int value = (int)(getBicubicInterpolatedPixel(x, y, this)+0.5);
 			if (value<0) value = 0;
@@ -308,6 +315,7 @@ public class ByteProcessor extends ImageProcessor {
 			return value;
 		} else
 			return getPixel((int)(x+0.5), (int)(y+0.5));
+		return 0;
 	}
 	
  	public float getPixelValue(int x, int y) {
@@ -895,96 +903,6 @@ public class ByteProcessor extends ImageProcessor {
     }
     
 
-	/** Scales the image or selection using the specified scale factors.
-		@see ImageProcessor#setInterpolate
-	*/
-	public void scale(double xScale, double yScale) {
-		double xCenter = roiX + roiWidth/2.0;
-		double yCenter = roiY + roiHeight/2.0;
-		int xmin, xmax, ymin, ymax;
-		if (!bgColorSet && isInvertedLut()) bgColor = 0;
-		
-		if ((xScale>1.0) && (yScale>1.0)) {
-			//expand roi
-			xmin = (int)(xCenter-(xCenter-roiX)*xScale);
-			if (xmin<0) xmin = 0;
-			xmax = xmin + (int)(roiWidth*xScale) - 1;
-			if (xmax>=width) xmax = width - 1;
-			ymin = (int)(yCenter-(yCenter-roiY)*yScale);
-			if (ymin<0) ymin = 0;
-			ymax = ymin + (int)(roiHeight*yScale) - 1;
-			if (ymax>=height) ymax = height - 1;
-		} else {
-			xmin = roiX;
-			xmax = roiX + roiWidth - 1;
-			ymin = roiY;
-			ymax = roiY + roiHeight - 1;
-		}
-		byte[] pixels2 = (byte[])getPixelsCopy();
-		ImageProcessor ip2 = null;
-		if (interpolationMethod==BICUBIC) {
-			ip2 = new ByteProcessor(getWidth(), getHeight(), pixels2, null);
-			ip2.setBackgroundValue(getBackgroundValue());
-		}
-		boolean checkCoordinates = (xScale < 1.0) || (yScale < 1.0);
-		int index1, index2, xsi, ysi;
-		double ys, xs;
-		if (interpolationMethod==BICUBIC) {
-			for (int y=ymin; y<=ymax; y++) {
-				ys = (y-yCenter)/yScale + yCenter;
-				index1 = y*width + xmin;
-				index2 = width*(int)ys;
-				for (int x=xmin; x<=xmax; x++) {
-					xs = (x-xCenter)/xScale + xCenter;
-					int value = (int)(getBicubicInterpolatedPixel(xs, ys, ip2)+0.5);
-					if (value<0) value = 0;
-					if (value>255) value = 255;
-					pixels[index1++] = (byte)value;
-				}
-			}
-		} else {
-			double xlimit = width-1.0, xlimit2 = width-1.001;
-			double ylimit = height-1.0, ylimit2 = height-1.001;
-			for (int y=ymin; y<=ymax; y++) {
-				ys = (y-yCenter)/yScale + yCenter;
-				ysi = (int)ys;
-				if (ys<0.0) ys = 0.0;			
-				if (ys>=ylimit) ys = ylimit2;
-				index1 = y*width + xmin;
-				index2 = width*(int)ys;
-				for (int x=xmin; x<=xmax; x++) {
-					xs = (x-xCenter)/xScale + xCenter;
-					xsi = (int)xs;
-					if (checkCoordinates && ((xsi<xmin) || (xsi>xmax) || (ysi<ymin) || (ysi>ymax)))
-						pixels[index1++] = (byte)bgColor;
-					else {
-						if (interpolationMethod==BILINEAR) {
-							if (xs<0.0) xs = 0.0;
-							if (xs>=xlimit) xs = xlimit2;
-							pixels[index1++] =(byte)((int)(getInterpolatedPixel(xs, ys, pixels2)+0.5)&255);
-						} else
-							pixels[index1++] = pixels2[index2+xsi];
-					}
-				}
-			}
-		}
-	}
-
-	/** Uses bilinear interpolation to find the pixel value at real coordinates (x,y). */
-	private final double getInterpolatedPixel(double x, double y, byte[] pixels) {
-		int xbase = (int)x;
-		int ybase = (int)y;
-		double xFraction = x - xbase;
-		double yFraction = y - ybase;
-		int offset = ybase * width + xbase;
-		int lowerLeft = pixels[offset]&255;
-		int lowerRight = pixels[offset + 1]&255;
-		int upperRight = pixels[offset + width + 1]&255;
-		int upperLeft = pixels[offset + width]&255;
-		double upperAverage = upperLeft + xFraction * (upperRight - upperLeft);
-		double lowerAverage = lowerLeft + xFraction * (lowerRight - lowerLeft);
-		return lowerAverage + yFraction * (upperAverage - lowerAverage);
-	}
 
 	/** Creates a new ByteProcessor containing a scaled copy of this image or selection.
 		@see ij.process.ImageProcessor#setInterpolate
@@ -1040,7 +958,7 @@ public class ByteProcessor extends ImageProcessor {
 					if (interpolationMethod==BILINEAR) {
 						if (xs<0.0) xs = 0.0;
 						if (xs>=xlimit) xs = xlimit2;
-						pixels2[index2++] = (byte)((int)(getInterpolatedPixel(xs, ys, pixels)+0.5)&255);
+						pixels2[index2++] = (byte)((int)(getInterpolatedPixelRef(xs, ys, pixels)+0.5)&255);
 					} else
 						pixels2[index2++] = pixels[index1+(int)xs];
 				}
@@ -1106,7 +1024,7 @@ public class ByteProcessor extends ImageProcessor {
 							if (xs>=xlimit) xs = xlimit2;
 							if (ys<0.0) ys = 0.0;			
 							if (ys>=ylimit) ys = ylimit2;
-							pixels[index++] = (byte)(getInterpolatedPixel(xs, ys, pixels2)+0.5);
+							pixels[index++] = (byte)(getInterpolatedPixelRef(xs, ys, pixels2)+0.5);
 						} else {
 							ixs = (int)(xs+0.5);
 							iys = (int)(ys+0.5);

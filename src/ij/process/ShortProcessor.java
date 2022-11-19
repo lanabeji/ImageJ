@@ -800,76 +800,6 @@ public class ShortProcessor extends ImageProcessor {
 		}
 	}
 	
-	/** Scales the image or selection using the specified scale factors.
-		@see ImageProcessor#setInterpolationMethod
-	*/
-	public void scale(double xScale, double yScale) {
-		double xCenter = roiX + roiWidth/2.0;
-		double yCenter = roiY + roiHeight/2.0;
-		int xmin, xmax, ymin, ymax;
-		if ((xScale>1.0) && (yScale>1.0)) {
-			//expand roi
-			xmin = (int)(xCenter-(xCenter-roiX)*xScale);
-			if (xmin<0) xmin = 0;
-			xmax = xmin + (int)(roiWidth*xScale) - 1;
-			if (xmax>=width) xmax = width - 1;
-			ymin = (int)(yCenter-(yCenter-roiY)*yScale);
-			if (ymin<0) ymin = 0;
-			ymax = ymin + (int)(roiHeight*yScale) - 1;
-			if (ymax>=height) ymax = height - 1;
-		} else {
-			xmin = roiX;
-			xmax = roiX + roiWidth - 1;
-			ymin = roiY;
-			ymax = roiY + roiHeight - 1;
-		}
-		short[] pixels2 = (short[])getPixelsCopy();
-		ImageProcessor ip2 = null;
-		if (interpolationMethod==BICUBIC)
-			ip2 = new ShortProcessor(getWidth(), getHeight(), pixels2, null);
-		boolean checkCoordinates = (xScale < 1.0) || (yScale < 1.0);
-		short min2 = (short)getMin();
-		int index1, index2, xsi, ysi;
-		double ys, xs;
-		if (interpolationMethod==BICUBIC) {
-			for (int y=ymin; y<=ymax; y++) {
-				ys = (y-yCenter)/yScale + yCenter;
-				int index = y*width + xmin;
-				for (int x=xmin; x<=xmax; x++) {
-					xs = (x-xCenter)/xScale + xCenter;
-					int value = (int)(getBicubicInterpolatedPixel(xs, ys, ip2)+0.5);
-					if (value<0) value=0; if (value>65535) value=65535;
-					pixels[index++] = (short)value;
-				}
-			}
-		} else {
-			double xlimit = width-1.0, xlimit2 = width-1.001;
-			double ylimit = height-1.0, ylimit2 = height-1.001;
-			for (int y=ymin; y<=ymax; y++) {
-				ys = (y-yCenter)/yScale + yCenter;
-				ysi = (int)ys;
-				if (ys<0.0) ys = 0.0;			
-				if (ys>=ylimit) ys = ylimit2;
-				index1 = y*width + xmin;
-				index2 = width*(int)ys;
-				for (int x=xmin; x<=xmax; x++) {
-					xs = (x-xCenter)/xScale + xCenter;
-					xsi = (int)xs;
-					if (checkCoordinates && ((xsi<xmin) || (xsi>xmax) || (ysi<ymin) || (ysi>ymax)))
-						pixels[index1++] = min2;
-					else {
-						if (interpolationMethod==BILINEAR) {
-							if (xs<0.0) xs = 0.0;
-							if (xs>=xlimit) xs = xlimit2;
-							pixels[index1++] = (short)(getInterpolatedPixel(xs, ys, pixels2)+0.5);
-						} else
-							pixels[index1++] = pixels2[index2+xsi];
-					}
-				}
-			}
-		}
-	}
-
 	/** Uses bilinear interpolation to find the pixel value at real coordinates (x,y). */
 	private final double getInterpolatedPixel(double x, double y, short[] pixels) {
 		int xbase = (int)x;
@@ -964,7 +894,12 @@ public class ShortProcessor extends ImageProcessor {
 		short[] pixels2 = (short[])ip2.getPixels(); 
 		System.arraycopy(pixels, 0, pixels2, 0, width*height); 
 		return ip2; 
-	} 
+	}
+
+	@Override
+	public void scale(double xScale, double yScale) {
+
+	}
 
 	/** Sets the foreground fill/draw color. */
 	public void setColor(Color color) {

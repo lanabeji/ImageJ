@@ -160,8 +160,6 @@ public class FloatProcessor extends ImageProcessor {
 		boolean firstTime = pixels8==null;
 		boolean thresholding = minThreshold!=NO_THRESHOLD && lutUpdateMode<NO_LUT_UPDATE;
 		//ij.IJ.log("createImage: "+firstTime+"  "+lutAnimation+"  "+thresholding);
-		if (firstTime || !lutAnimation)
-			create8BitImage(thresholding&&lutUpdateMode==RED_LUT);
 		if (cm==null)
 			makeDefaultColorModel();
 		if (thresholding) {
@@ -186,31 +184,7 @@ public class FloatProcessor extends ImageProcessor {
 		return createBufferedImage();
 	}
 		
-	// creates 8-bit image by linearly scaling from float to 8-bits
-	private byte[] create8BitImage(boolean thresholding) {
-		int size = width*height;
-		if (pixels8==null)
-			pixels8 = new byte[size];
-		double value;
-		int ivalue;
-		double min2 = getMin();
-		double max2 = getMax();
-		double scale = 255.0/(max2-min2);
-		int maxValue = thresholding?254:255;
-		for (int i=0; i<size; i++) {
-			value = pixels[i]-min2;
-			if (value<0.0) value=0.0;
-			ivalue = (int)(value*scale+0.5);
-			if (ivalue>maxValue) ivalue = maxValue;
-			pixels8[i] = (byte)ivalue;
-		}
-		return pixels8;
-	}
-	
-	@Override
-	byte[] create8BitImage() {
-		return create8BitImage(false);
-	}
+
 		
 	Image createBufferedImage() {
 		if (raster==null) {

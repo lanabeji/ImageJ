@@ -203,46 +203,6 @@ public class HistogramPlot extends ImagePlus {
 			return 0;
 	}
 
-	void drawPlot(long maxCount, ImageProcessor ip) {
-		if (maxCount==0) maxCount = 1;
-		frame = new Rectangle(XMARGIN, YMARGIN, HIST_WIDTH, HIST_HEIGHT);
-		if (histogram.length==256) {
-			double scale2 = HIST_WIDTH/256.0;
-			int barWidth = 1;
-			if (SCALE>1) barWidth=2;
-			if (SCALE>2) barWidth=3;
-			for (int i = 0; i < 256; i++) {
-				int x =(int)(i*scale2);
-				int y = (int)(((double)HIST_HEIGHT*(double)histogram[i])/maxCount);
-				if (y>HIST_HEIGHT) y = HIST_HEIGHT;
-				for (int j = 0; j<barWidth; j++)
-					ip.drawLine(x+j+XMARGIN, YMARGIN+HIST_HEIGHT, x+j+XMARGIN, YMARGIN+HIST_HEIGHT-y);
-			}
-		} else if (histogram.length<=HIST_WIDTH) {
-			int index, y;
-			for (int i=0; i<HIST_WIDTH; i++) {
-				index = (int)(i*(double)histogram.length/HIST_WIDTH); 
-				y = (int)(((double)HIST_HEIGHT*(double)histogram[index])/maxCount);
-				if (y>HIST_HEIGHT) y = HIST_HEIGHT;
-				ip.drawLine(i+XMARGIN, YMARGIN+HIST_HEIGHT, i+XMARGIN, YMARGIN+HIST_HEIGHT-y);
-			}
-		} else {
-			double xscale = (double)HIST_WIDTH/histogram.length; 
-			for (int i=0; i<histogram.length; i++) {
-				long value = histogram[i];
-				if (value>0L) {
-					int y = (int)(((double)HIST_HEIGHT*(double)value)/maxCount);
-					if (y>HIST_HEIGHT) y = HIST_HEIGHT;
-					int x = (int)(i*xscale)+XMARGIN;
-					ip.drawLine(x, YMARGIN+HIST_HEIGHT, x, YMARGIN+HIST_HEIGHT-y);
-				}
-			}
-		}
-		ip.setColor(frameColor);
-		ip.drawRect(frame.x-1, frame.y, frame.width+2, frame.height+1);
-		ip.setColor(Color.black);
-	}
-		
 	void drawLogPlot (long maxCount, ImageProcessor ip) {
 		frame = new Rectangle(XMARGIN, YMARGIN, HIST_WIDTH, HIST_HEIGHT);
 		ip.drawRect(frame.x-1, frame.y, frame.width+2, frame.height+1);
