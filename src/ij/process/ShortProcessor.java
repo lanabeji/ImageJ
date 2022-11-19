@@ -569,7 +569,12 @@ public class ShortProcessor extends ImageProcessor {
 			}
 		}
     }
-    
+
+	@Override
+	public void flipVertical() {
+		int min2 = (int)getMin();
+	}
+
 	public void invert() {
 		int range = 65536;
 		int defaultRange = ij.ImagePlus.getDefault16bitRange();
@@ -786,20 +791,7 @@ public class ShortProcessor extends ImageProcessor {
 		}
 	}
 
-	public void flipVertical() {
-		int index1,index2;
-		short tmp;
-		for (int y=0; y<roiHeight/2; y++) {
-			index1 = (roiY+y)*width+roiX;
-			index2 = (roiY+roiHeight-1-y)*width+roiX;
-			for (int i=0; i<roiWidth; i++) {
-				tmp = pixels[index1];
-				pixels[index1++] = pixels[index2];
-				pixels[index2++] = tmp;
-			}
-		}
-	}
-	
+
 	/** Uses bilinear interpolation to find the pixel value at real coordinates (x,y). */
 	private final double getInterpolatedPixel(double x, double y, short[] pixels) {
 		int xbase = (int)x;

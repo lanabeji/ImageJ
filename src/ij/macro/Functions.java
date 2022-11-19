@@ -7608,10 +7608,6 @@ public class Functions implements MacroConstants, Measurements {
 			interp.getComma();
 			Variable[] y = getArray();
 			interp.getRightParen();
-			for (int i=0; i<x.length; i++)
-				x[i].setValue(plot==null ? cal.getX(x[i].getValue()) : plot.descaleX((int)(x[i].getValue()+0.5)));
-			for (int i=0; i<y.length; i++)
-				y[i].setValue(plot==null ? cal.getY(y[i].getValue(),height) : plot.descaleY((int)(y[i].getValue()+0.5)));
 		} else {
 			Variable xv = getVariable();
 			Variable yv = null;
@@ -7630,10 +7626,6 @@ public class Functions implements MacroConstants, Measurements {
 			double x = xv.getValue();
 			if (twoArgs) {
 				double y = yv.getValue();
-				xv.setValue(plot == null ? cal.getX(x) : plot.descaleX((int)(x+0.5)));
-				yv.setValue(plot == null ? cal.getY(y,height) : plot.descaleY((int)(y+0.5)));
-				if (threeArgs)
-					zv.setValue(cal.getZ(zv.getValue()));
 			} else //oneArg; convert horizontal length (not the x coordinate, no offset)
 				xv.setValue(x * cal.pixelWidth) ;
 		}

@@ -495,6 +495,11 @@ public class ByteProcessor extends ImageProcessor {
 			this.maxThreshold = 255.0;
 	}
 
+	@Override
+	public void flipVertical() {
+
+	}
+
 	/** Copies the image contained in 'ip' to (xloc, yloc) using one of
 		the transfer modes defined in the Blitter interface. */
 	public void copyBits(ImageProcessor ip, int xloc, int yloc, int mode) {
@@ -1024,7 +1029,6 @@ public class ByteProcessor extends ImageProcessor {
 							if (xs>=xlimit) xs = xlimit2;
 							if (ys<0.0) ys = 0.0;			
 							if (ys>=ylimit) ys = ylimit2;
-							pixels[index++] = (byte)(getInterpolatedPixelRef(xs, ys, pixels2)+0.5);
 						} else {
 							ixs = (int)(xs+0.5);
 							iys = (int)(ys+0.5);
@@ -1032,23 +1036,8 @@ public class ByteProcessor extends ImageProcessor {
 							if (iys>=height) iys = height -1;
 							pixels[index++] = pixels2[width*iys+ixs];
 						}
-					} else
-						pixels[index++] = (byte)bgColor;
+					} 
 				}
-			}
-		}
-	}
-
-	public void flipVertical() {
-		int index1,index2;
-		byte tmp;
-		for (int y=0; y<roiHeight/2; y++) {
-			index1 = (roiY+y)*width+roiX;
-			index2 = (roiY+roiHeight-1-y)*width+roiX;
-			for (int i=0; i<roiWidth; i++) {
-				tmp = pixels[index1];
-				pixels[index1++] = pixels[index2];
-				pixels[index2++] = tmp;
 			}
 		}
 	}

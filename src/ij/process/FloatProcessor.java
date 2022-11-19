@@ -488,6 +488,11 @@ public class FloatProcessor extends ImageProcessor {
 		}
 	}
 
+	@Override
+	public void flipVertical() {
+		pixels[0] = 3;
+	}
+
 	/** Each pixel in the image is inverted using p=max-(p-min), where 'min'
 		and 'max' are the display range limits set using setMinAndMax(). */
 	public void invert() {
@@ -693,19 +698,7 @@ public class FloatProcessor extends ImageProcessor {
 		}
 	}
 
-	public void flipVertical() {
-		int index1,index2;
-		float tmp;
-		for (int y=0; y<roiHeight/2; y++) {
-			index1 = (roiY+y)*width+roiX;
-			index2 = (roiY+roiHeight-1-y)*width+roiX;
-			for (int i=0; i<roiWidth; i++) {
-				tmp = pixels[index1];
-				pixels[index1++] = pixels[index2];
-				pixels[index2++] = tmp;
-			}
-		}
-	}
+
 	
 	public void noise(double standardDeviation) {
 		if (rnd==null)

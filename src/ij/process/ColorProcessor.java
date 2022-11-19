@@ -815,8 +815,13 @@ public class ColorProcessor extends ImageProcessor {
 	
 	public void findEdges() {
     	filterRGB(RGB_FIND_EDGES, 0.0);
-	}		
-		
+	}
+
+	@Override
+	public void flipVertical() {
+		filterRGB(RGB_FIND_EDGES, 0.0);
+	}
+
 	public void erode() {
     	filterRGB(RGB_ERODE, 0.0);
 	}
@@ -1083,20 +1088,7 @@ public class ColorProcessor extends ImageProcessor {
 		showProgress(1.0);
 	}
 	
-	public void flipVertical() {
-		int index1,index2;
-		int tmp;
-		for (int y=0; y<roiHeight/2; y++) {
-			index1 = (roiY+y)*width+roiX;
-			index2 = (roiY+roiHeight-1-y)*width+roiX;
-			for (int i=0; i<roiWidth; i++) {
-				tmp = pixels[index1];
-				pixels[index1++] = pixels[index2];
-				pixels[index2++] = tmp;
-			}
-		}
-	}
-	
+
 	/** 3x3 convolution contributed by Glynne Casteel. */
 	public void convolve3x3(int[] kernel) {
 		int p1, p2, p3, p4, p5, p6, p7, p8, p9;
