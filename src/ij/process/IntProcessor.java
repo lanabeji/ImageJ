@@ -56,7 +56,6 @@ public class IntProcessor extends ColorProcessor {
 		return createBufferedImage();
 	}
 	
-	// creates 8-bit image by linearly scaling from float to 8-bits
 	private byte[] create8BitImage(boolean thresholding) {
 		int size = width*height;
 		if (pixels8==null)

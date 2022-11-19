@@ -475,7 +475,6 @@ public class ColorThresholder extends PlugInFrame implements PlugIn, Measurement
 					ImagePlus imp = WindowManager.getCurrentImage();
 					if (imp!=null) {
 						reset(imp);
-						apply(imp);
 						imp.updateAndDraw();
 					}
 				}
@@ -555,10 +554,8 @@ public class ColorThresholder extends PlugInFrame implements PlugIn, Measurement
 				filteredB.setEnabled(true);
 			} else if (b==filteredB) {
 				reset(imp);
-				apply(imp);
 			} else if (b==sampleB) {
 				sample();
-				apply(imp);
 			} else if (b==selectB) {
 				createSelection();
 			} else if (b==stackB) {
@@ -586,7 +583,6 @@ public class ColorThresholder extends PlugInFrame implements PlugIn, Measurement
 		if (imp==null) return;
 		int saveMode = mode;
 		mode = BLACK_AND_WHITE;
-		apply(imp);
 		mode = saveMode;
 		ImageProcessor ip = imp.getProcessor().convertToByte(false);
 		int fg = Prefs.blackBackground?255:0;
@@ -1114,125 +1110,6 @@ public class ColorThresholder extends PlugInFrame implements PlugIn, Measurement
 		}
 	}
 
-	void apply(ImagePlus imp) {
-		if (IJ.debugMode) IJ.log("ColorThresholder.apply");
-		ImageProcessor fillMaskIP = (ImageProcessor)imp.getProperty("Mask");
-		if (fillMaskIP==null) return;
-		byte[] fillMask = (byte[])fillMaskIP.getPixels();
-		byte fill = (byte)255;
-		byte keep = (byte)0;
-
-		if (bandPassH.getState() && bandPassS.getState() && bandPassB.getState()){ //PPP All pass
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue < minHue)||(hue > maxHue)) || ((sat < minSat)||(sat > maxSat)) || ((bri < minBri)||(bri > maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if(!bandPassH.getState() && !bandPassS.getState() && !bandPassB.getState()){ //SSS All stop
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue >= minHue)&&(hue <= maxHue)) || ((sat >= minSat)&&(sat <= maxSat)) || ((bri >= minBri)&&(bri <= maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if(bandPassH.getState() && bandPassS.getState() && !bandPassB.getState()){ //PPS
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue < minHue)||(hue > maxHue)) || ((sat < minSat)||(sat > maxSat)) || ((bri >= minBri) && (bri <= maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if(!bandPassH.getState() && !bandPassS.getState() && bandPassB.getState()){ //SSP
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue >= minHue) && (hue <= maxHue)) || ((sat >= minSat) && (sat <= maxSat)) || ((bri < minBri) || (bri > maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if (bandPassH.getState() && !bandPassS.getState() && !bandPassB.getState()){ //PSS
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue < minHue) || (hue > maxHue)) || ((sat >= minSat) && (sat <= maxSat)) || ((bri >= minBri) && (bri <= maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if(!bandPassH.getState() && bandPassS.getState() && bandPassB.getState()){ //SPP
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue >= minHue) && (hue <= maxHue))|| ((sat < minSat) || (sat > maxSat)) || ((bri < minBri) || (bri > maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if (!bandPassH.getState() && bandPassS.getState() && !bandPassB.getState()){ //SPS
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue >= minHue)&& (hue <= maxHue)) || ((sat < minSat)||(sat > maxSat)) || ((bri >= minBri) && (bri <= maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		} else if(bandPassH.getState() && !bandPassS.getState() && bandPassB.getState()){ //PSP
-			for (int j = 0; j < numPixels; j++){
-				int hue = hSource[j]&0xff;
-				int sat = sSource[j]&0xff;
-				int bri = bSource[j]&0xff;
-				if (((hue < minHue) || (hue > maxHue)) || ((sat >= minSat)&&(sat <= maxSat)) || ((bri < minBri) || (bri > maxBri)))
-					fillMask[j] = keep;
-				else
-					fillMask[j] = fill;
-			}
-		}
-
-		ImageProcessor ip = imp.getProcessor();
-		if (ip==null) return;
-		if (mode==BLACK_AND_WHITE) {
-			int[] pixels = (int[])ip.getPixels();
-			int fcolor = Prefs.blackBackground?0xffffffff:0xff000000;
-			int bcolor = Prefs.blackBackground?0xff000000:0xffffffff;
-			for (int i=0; i<numPixels; i++) {
-				if (fillMask[i]!=0)
-					pixels[i] = fcolor;
-				else
-					pixels[i]= bcolor;
-			}
-		} else {
-			ip.setColor(thresholdColor());
-			ip.fill(fillMaskIP);
-		}
-	}
-	
-	Color thresholdColor() {
-		Color color = null;
-		switch (mode) {
-			case RED: color=Color.red; break;
-			case WHITE: color=Color.white; break;
-			case BLACK: color=Color.black; break;
-			case BLACK_AND_WHITE: color=Color.black; break;
-		}
-		return color;
-	}
-
 	void applyStack() {
 		ImagePlus imp = WindowManager.getCurrentImage();
 		if (imp==null) return;
@@ -1240,7 +1117,6 @@ public class ColorThresholder extends PlugInFrame implements PlugIn, Measurement
 		for (int i = 1; i <= numSlices; i++){
 			imp.setSlice(i);
 			if (!checkImage()) return;
-			apply(imp);
 		}
 		applyingStack = false;
 	}

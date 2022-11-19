@@ -230,7 +230,7 @@ public class FloatProcessor extends ImageProcessor {
 		min=snapshotMin;
 		max=snapshotMax;
 		minMaxSet = true;
-		System.arraycopy(snapshotPixels,0,pixels,0,width*height);
+
 	}
 	
 	public void reset(ImageProcessor mask) {

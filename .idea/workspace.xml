@@ -6,18 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ea622869-46b8-4393-90cd-9648e309f57a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/io/FileOpener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/io/FileOpener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/macro/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/macro/Functions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/ByteProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/ByteProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/ColorProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/ColorProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/plugin/GifWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/GifWriter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/plugin/frame/ColorThresholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/frame/ColorThresholder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/ShortProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/ShortProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/io/FileOpener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/macro/Functions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/process/ByteProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/process/ColorProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/process/FloatProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/ij/process/ShortProcessor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ij/process/IntProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/IntProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +61,7 @@
       <workItem from="1668798003727" duration="599000" />
       <workItem from="1668800633782" duration="5969000" />
       <workItem from="1668866909771" duration="7153000" />
-      <workItem from="1668880916323" duration="3105000" />
+      <workItem from="1668880916323" duration="5295000" />
     </task>
     <servers />
   </component>
