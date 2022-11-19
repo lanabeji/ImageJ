@@ -133,7 +133,6 @@ public class HistogramPlot extends ImagePlus {
 			newMaxCount = (int)(maxCount2 * 1.5);
 		if (logScale)
 			drawLogPlot(yMax>0?yMax:newMaxCount, ip);
-		drawPlot(yMax>0?yMax:newMaxCount, ip);
 		histogram[stats.mode] = saveModalCount;
  		x = XMARGIN + 1;
 		y = YMARGIN + HIST_HEIGHT + 2;

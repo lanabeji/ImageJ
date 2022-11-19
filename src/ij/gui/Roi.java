@@ -1035,9 +1035,7 @@ public class Roi extends Object implements Cloneable, java.io.Serializable, Iter
 				height=1;
 				y=y2=yc;
 			}
-			int[] eval = evalActiveHandler(activeHandle,x2,y2,xc,yc);
-			x = eval[0];
-			y = eval[1];
+
 			if (center) {
 				x=xc-width/2;
 				y=yc-height/2;
@@ -1048,9 +1046,7 @@ public class Roi extends Object implements Cloneable, java.io.Serializable, Iter
 			if (activeHandle==1 || activeHandle==5) width=(int)Math.rint((double)height*asp);
 			else height=(int)Math.rint((double)width/asp);
 
-			int[] eval = evalActiveHandler(activeHandle,x2,y2,xc,yc);
-			x = eval[0];
-			y = eval[1];
+
 			if (center) {
 				x=xc-width/2;
 				y=yc-height/2;
