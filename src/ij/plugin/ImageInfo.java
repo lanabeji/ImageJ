@@ -5,12 +5,10 @@ import ij.process.*;
 import ij.measure.*;
 import ij.io.*;
 import ij.util.Tools;
-import ij.plugin.frame.Editor;
 import ij.plugin.filter.Analyzer;
 import ij.text.TextWindow;
 import ij.macro.Interpreter;
 import java.awt.*;
-import java.util.*;
 import java.lang.reflect.*;
 import java.awt.geom.Rectangle2D;
 
@@ -22,14 +20,32 @@ public class ImageInfo implements PlugIn {
 		if (imp==null)
 			showInfo();
 		else {
-			String info = getImageInfo(imp);
-			if (info.contains("----"))
-				showInfo(imp, info, 450, 600);
-			else {
-				int inc = info.contains("No selection")?0:130;
-				showInfo(imp, info, 400, 500+inc);
-			}
+			showInfoWithCondition(imp);
 		}
+	}
+	
+	private void showInfoWithCondition(ImagePlus imp) {
+		String info = getImageInfo(imp);
+		if (info.contains("----"))
+			showInfo(imp, info, 450, 600);
+		else {
+			int inc = info.contains("No selection")?0:130;
+			showInfo(imp, info, 400, 500+inc);
+		}
+	}
+	
+	private String getPathProperties(String path, String s) {
+		if (path!=null)
+			s += "*Custom properties*: "+ path +"\n";
+		
+		return s;
+	}
+	
+	private String getPathPreferences(String path, String s) {
+		if (path!=null)
+			s += "*Custom preferences*: "+ path +"\n";
+		
+		return s;
 	}
 
 	private void showInfo() {
@@ -45,16 +61,42 @@ public class ImageInfo implements PlugIn {
 		s += "GUI scale: "+IJ.d2s(Prefs.getGuiScale(),2)+"\n";
 		//s += "Active window: "+WindowManager.getActiveWindow()+"\n";
 		String path = Prefs.getCustomPropsPath();
-		if (path!=null)
-			s += "*Custom properties*: "+ path +"\n";
+		s = getPathProperties(path, s);
 		path = Prefs.getCustomPrefsPath();
-		if (path!=null)
-			s += "*Custom preferences*: "+ path +"\n";
+		s = getPathPreferences(path, s);
+
 		//if (IJ.isMacOSX()) {
 		//	String time = " ("+ImageWindow.setMenuBarTime+"ms)";
 		//	s += "SetMenuBarCount: "+Menus.setMenuBarCount+time+"\n";
 		//}
 		new TextWindow("Info", s, 600, 300);
+	}
+	
+	private String getInfoPropertyNull(String infoProperty, ImagePlus imp) {
+		if (infoProperty==null)
+			return getExifData(imp);
+		return infoProperty;
+	}
+	
+	private String getInfoPropertyNotNull(String infoProperty, String properties) {
+		if (infoProperty!=null)
+			return properties + "\n" + infoProperty;
+		else
+			return properties;
+	}
+	
+	private String getInfoProperty2(String infoProperty, boolean isStack, ImagePlus imp) {
+		if (infoProperty==null || (isStack && (imp.getStack() instanceof ListVirtualStack))) {
+			return getInfoPropertyNull((String)imp.getProperty("Info"), imp);		
+		}
+		return infoProperty;
+	}
+	
+	private String getInfoProperty3(String properties, String infoProperty) {
+		if (properties!=null) {
+			return getInfoPropertyNotNull(infoProperty, properties);
+		}
+		return infoProperty;
 	}
 
 	public String getImageInfo(ImagePlus imp) {
@@ -67,19 +109,11 @@ public class ImageInfo implements PlugIn {
 			if (label!=null && label.indexOf('\n')>0)
 				infoProperty = label;
 		}
-		if (infoProperty==null || (isStack && (imp.getStack() instanceof ListVirtualStack))) {
-			infoProperty = (String)imp.getProperty("Info");
-			if (infoProperty==null)
-				infoProperty = getExifData(imp);
-		}
+		infoProperty = getInfoProperty2(infoProperty, isStack, imp);
+		
 		if (imp.getProp("HideInfo")==null) {
 			String properties = getImageProperties(imp);
-			if (properties!=null) {
-				if (infoProperty!=null)
-					infoProperty = properties + "\n" + infoProperty;
-				else
-					infoProperty = properties;
-			}
+			infoProperty = getInfoProperty3(properties, infoProperty);
 		}
 		String info = getInfo(imp, ip);
 		if (infoProperty!=null)

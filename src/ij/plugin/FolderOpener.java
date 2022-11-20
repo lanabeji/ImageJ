@@ -114,11 +114,13 @@ public class FolderOpener implements PlugIn, TextListener {
 		run(path);
 		return image;
 	}
-
-	public void run(String arg) {
-		boolean isMacro = Macro.getOptions()!=null;
+	
+	public void getDirectoryValue(boolean directorySet){
 		if (!directorySet)
 			directory = null;
+	}
+	
+	public void defineVars(String arg, boolean isMacro) {
 		if (arg!=null && !arg.equals(""))
 			directory = arg;
 		else {
@@ -134,6 +136,145 @@ public class FolderOpener implements PlugIn, TextListener {
 					legacyRegex = null;
 			}
 		}
+	}
+	
+	public void addSlashDirectory() {
+		if (!(directory.endsWith("/")||directory.endsWith("\\")))
+			directory += "/";
+	}
+	
+	public void setPrefs(String arg, boolean isMacro) {
+		if (arg==null && !isMacro)
+			Prefs.set(DIR_KEY, directory);
+	}
+	
+	public ArrayList getFilelist(String[] list) {
+		ArrayList fileList = new ArrayList();
+		for (int i=0; i<list.length; i++) {
+			File f = (new File(directory+list[i]));
+			if (!f.isDirectory())
+				fileList.add(list[i]);
+		}
+		
+		return fileList;
+	}
+	
+	public String[] modifiyList(String[] list, ArrayList fileList) {
+		if (fileList.size()<list.length)
+			return (String[])fileList.toArray(new String[fileList.size()]);
+		
+		return list;
+	}
+	
+	public String getTitle() {
+		String title = directory;
+		if (title.endsWith(File.separator) || title.endsWith("/"))
+			title = title.substring(0, title.length()-1);
+		int index = title.lastIndexOf(File.separatorChar);
+		if (index!=-1)
+			title = title.substring(index + 1);
+		else {
+			index = title.lastIndexOf("/");
+			if (index!=-1)
+				title = title.substring(index + 1);
+		}
+		if (title.endsWith(":"))
+			title = title.substring(0, title.length()-1);
+		
+		return title;
+	}
+	
+	public String getPluginName() {
+		String pluginName = "Sequence Reader";
+		if (legacyRegex!=null)
+			pluginName += "(legacy)";
+		
+		return pluginName;
+	}
+	
+	public String[] sortList(String[] list) {
+		if (sortFileNames || IJ.isMacOSX())
+			return StringSorter.sortNumerically(list);
+		
+		return list;
+	}
+	
+	public void printNumberFiles(String[] list) {
+		if (IJ.debugMode) IJ.log("FolderOpener: "+directory+" ("+list.length+" files)");
+	}
+	
+	public void setNFiles(String[] list) {
+		if (this.nFiles==0)
+			this.nFiles = list.length;
+	}
+	
+	public void setDepth(ImagePlus imp) {
+		if (this.bitDepth==0) {
+			this.bitDepth = imp.getBitDepth();
+			this.defaultBitDepth = bitDepth;
+		}
+	}
+	
+	public void setNFilesStart(String[] list) {
+		if (this.nFiles<1)
+			this.nFiles = list.length;
+		if (this.start<1 || this.start>list.length)
+			this.start = 1;
+		if (this.start+this.nFiles-1>list.length)
+			this.nFiles = list.length-this.start+1;
+	}
+	
+	public boolean setDicomImages(String info, boolean dicomImages) {
+		if (info!=null && info.contains("7FE0,0010"))
+			return true;
+		return dicomImages;
+	}
+	
+	public String[] setListByImagesOS(boolean dicomImages, String[] list) {
+		if (dicomImages && !IJ.isMacOSX() && !sortFileNames)
+			return StringSorter.sortNumerically(list);
+		
+		return list;
+	}
+	
+	public void setBitDepth(ImagePlus imp) {
+		if (bitDepth==0)
+			bitDepth = imp.getBitDepth();
+	}
+	
+	public void setFi() {
+		if (fi==null)
+			fi = new FileInfo();
+	}
+	
+	public void setImage(ImagePlus imp2) {
+		if (saveImage)
+			image = imp2;
+	}
+	
+	public void setFilter() {
+		if (filter.contains(" "))
+			filter = "["+filter+"]";
+	}
+	
+	public void useRecorders(String options) {
+		String dir = Recorder.fixPath(directory);
+		if (Recorder.scriptMode())
+				Recorder.recordCall("imp = FolderOpener.open(\""+dir+"\", \""+options+"\");");
+			else {
+				if (options.length()==0)
+					Recorder.recordString("File.openSequence(\""+dir+"\");\n");
+				else
+					Recorder.recordString("File.openSequence(\""+dir+"\", \""+options+"\");\n");
+				Recorder.disableCommandRecording();
+			}
+	}
+
+	public void run(String arg) {
+		boolean isMacro = Macro.getOptions()!=null;
+		getDirectoryValue(directorySet);
+		defineVars(arg, isMacro);
+
 		if (arg==null) {
 			if (!showDialog()) return;
 		}
@@ -156,46 +297,29 @@ public class FolderOpener implements PlugIn, TextListener {
 				return;
 			}
 		}
-		if (!(directory.endsWith("/")||directory.endsWith("\\")))
-			directory += "/";
-		if (arg==null && !isMacro)
-			Prefs.set(DIR_KEY, directory);
-		//remove subdirectories from list
-		ArrayList fileList = new ArrayList();
-		for (int i=0; i<list.length; i++) {
-			File f = (new File(directory+list[i]));
-			if (!f.isDirectory())
-				fileList.add(list[i]);
-		}
-		if (fileList.size()<list.length)
-			list = (String[])fileList.toArray(new String[fileList.size()]);
-
-		String title = directory;
-		if (title.endsWith(File.separator) || title.endsWith("/"))
-			title = title.substring(0, title.length()-1);
-		int index = title.lastIndexOf(File.separatorChar);
-		if (index!=-1)
-			title = title.substring(index + 1);
-		else {
-			index = title.lastIndexOf("/");
-			if (index!=-1)
-				title = title.substring(index + 1);
-		}
-		if (title.endsWith(":"))
-			title = title.substring(0, title.length()-1);
 		
+		addSlashDirectory();
+		setPrefs(arg, isMacro);
+
+		//remove subdirectories from list
+		ArrayList fileList = getFilelist(list);
+		list = modifiyList(list, fileList);
+		
+		String title = getTitle();
 		list = trimFileList(list);
 		if (list==null)
 			return;
-		String pluginName = "Sequence Reader";
-		if (legacyRegex!=null)
-			pluginName += "(legacy)";
+		
+		String pluginName = getPluginName();
 		list = getFilteredList(list, filter, pluginName);
+		
 		if (list==null)
 			return;
-		if (sortFileNames || IJ.isMacOSX())
-			list = StringSorter.sortNumerically(list);
-		if (IJ.debugMode) IJ.log("FolderOpener: "+directory+" ("+list.length+" files)");
+		
+		list = sortList(list);
+		printNumberFiles(list);
+				
+		
 		int width=0, height=0, stackSize=1;
 		ImageStack stack = null;
 		double min = Double.MAX_VALUE;
@@ -204,8 +328,10 @@ public class FolderOpener implements PlugIn, TextListener {
 		boolean allSameCalibration = true;
 		IJ.resetEscape();		
 		Overlay overlay = null;
-		if (this.nFiles==0)
-			this.nFiles = list.length;
+		
+		setNFiles(list);
+		
+
 		boolean dicomImages = false;
 		try {
 			for (int i=0; i<list.length; i++) {
@@ -217,13 +343,10 @@ public class FolderOpener implements PlugIn, TextListener {
 				if (imp!=null) {
 					width = imp.getWidth();
 					height = imp.getHeight();
-					if (this.bitDepth==0) {
-						this.bitDepth = imp.getBitDepth();
-						this.defaultBitDepth = bitDepth;
-					}
+					setDepth(imp);
 					String info = (String)imp.getProperty("Info");
-					if (info!=null && info.contains("7FE0,0010"))
-						dicomImages = true;
+					dicomImages = setDicomImages(info, dicomImages);
+
 					break;
 				}
 			}
@@ -235,20 +358,12 @@ public class FolderOpener implements PlugIn, TextListener {
 			}
 			IJ.showStatus("");
 			t0 = System.currentTimeMillis();
-			if (dicomImages && !IJ.isMacOSX() && !sortFileNames)
-				list = StringSorter.sortNumerically(list);
-
-			if (this.nFiles<1)
-				this.nFiles = list.length;
-			if (this.start<1 || this.start>list.length)
-				this.start = 1;
-			if (this.start+this.nFiles-1>list.length)
-				this.nFiles = list.length-this.start+1;
-			int count = 0;
-			int counter = 0;
+			list = setListByImagesOS(dicomImages, list);
+			setNFilesStart(list);
+			
+			int count = 0, counter = 0;
 			ImagePlus imp = null;
-			boolean firstMessage = true;
-			boolean fileInfoStack = false;
+			boolean firstMessage = true, fileInfoStack = false;
 			
 			// open images as stack
 			for (int i=this.start-1; i<list.length; i++) {
@@ -272,8 +387,8 @@ public class FolderOpener implements PlugIn, TextListener {
 						width = stackWidth;
 						height = stackHeight;
 					}
-					if (bitDepth==0)
-						bitDepth = imp.getBitDepth();
+					setBitDepth(imp);
+
 					fi = imp.getOriginalFileInfo();
 					ImageProcessor ip = imp.getProcessor();
 					min = ip.getMin();
@@ -397,8 +512,7 @@ public class FolderOpener implements PlugIn, TextListener {
 			ImagePlus imp2 = new ImagePlus(title, stack);
 			if (imp2.getType()==ImagePlus.GRAY16 || imp2.getType()==ImagePlus.GRAY32)
 				imp2.getProcessor().setMinAndMax(min, max);
-			if (fi==null)
-				fi = new FileInfo();
+			setFi();
 			fi.fileFormat = FileInfo.UNKNOWN;
 			fi.fileName = "";
 			fi.directory = directory;
@@ -460,8 +574,7 @@ public class FolderOpener implements PlugIn, TextListener {
 						imp2.setOverlay(overlay);
 				}
 			}
-			if (saveImage)
-				image = imp2;
+			setImage(imp2);
 		}
 		IJ.showProgress(1.0);
 		if (Recorder.record) {
@@ -469,8 +582,7 @@ public class FolderOpener implements PlugIn, TextListener {
 			if (bitDepth!=defaultBitDepth)
 				options = options + " bitdepth=" + bitDepth;				
 			if (filter!=null && filter.length()>0) {
-				if (filter.contains(" "))
-					filter = "["+filter+"]";
+				setFilter();
 				options = options + " filter=" + filter;
 			}
 			if (start!=1)
@@ -483,16 +595,8 @@ public class FolderOpener implements PlugIn, TextListener {
 				options = options + " noMetaSort";
 			if (!Recorder.scriptMode() && openAsSeparateImages)
 				options = options + " open";
-			String dir = Recorder.fixPath(directory);
-			if (Recorder.scriptMode())
-   				Recorder.recordCall("imp = FolderOpener.open(\""+dir+"\", \""+options+"\");");
-   			else {
-   				if (options.length()==0)
-   					Recorder.recordString("File.openSequence(\""+dir+"\");\n");
-   				else
-   					Recorder.recordString("File.openSequence(\""+dir+"\", \""+options+"\");\n");
-   				Recorder.disableCommandRecording();
-   			}
+			
+			useRecorders(options);
 		}
 	}
 	
@@ -544,6 +648,54 @@ public class FolderOpener implements PlugIn, TextListener {
 		}
 	}
 	
+	
+	public void setOptionsDepth(String options, String optionsOrig) {
+		if (!options.equals(optionsOrig))
+			Macro.setOptions(options);
+		if (options.contains("convert_to_rgb"))
+			this.bitDepth = 24;
+	}
+	
+	public void setDirPrefs(String options) {
+		if (!directorySet && options==null)
+			directory = Prefs.get(DIR_KEY, IJ.getDir("downloads")+"stack/");
+	}
+	
+	public void setFilterByRegex() {
+		if (legacyRegex!=null)
+			filter = "("+legacyRegex+")";	
+	}
+	
+	public void setStep() {
+		if (this.step<1)
+			this.step = 1;
+	}
+	
+	public void setScale() {
+		if (this.scale<5.0) this.scale = 5.0;
+		if (this.scale>100.0) this.scale = 100.0;
+	}
+	
+	public void setSortByMetadata() {
+		if (!sortFileNames)
+			sortByMetaData = false;
+	}
+	
+	public void setScale2() {
+		if (openAsVirtualStack)
+			scale = 100.0;
+	}
+	
+	public void setImages2() {
+		if (openAsSeparateImages)
+			openAsVirtualStack = true;
+		if (!IJ.macroRunning()) {
+			staticSortFileNames = sortFileNames;
+			if (!openAsSeparateImages)
+				staticOpenAsVirtualStack = openAsVirtualStack;
+		}
+	}
+	
 	boolean showDialog() {
 		String options = Macro.getOptions();
 		if  (options!=null) {  //macro
@@ -554,14 +706,11 @@ public class FolderOpener implements PlugIn, TextListener {
 			options =  options.replace("number=","count=");
 			options =  options.replace("increment=","step=");
 			options =  options.replace("inc=","step=");
-			if (!options.equals(optionsOrig))
-				Macro.setOptions(options);
-			if (options.contains("convert_to_rgb"))
-				this.bitDepth = 24;
+			setOptionsDepth(options, optionsOrig);
+
 		}
 		String countStr = "---";
-		if (!directorySet && options==null)
-			directory = Prefs.get(DIR_KEY, IJ.getDir("downloads")+"stack/");
+		setDirPrefs(options);
 		if (directory!=null && !IJ.isMacro()) {			
 			File f = new File(directory);
 			String[] names = f.list();
@@ -606,8 +755,7 @@ public class FolderOpener implements PlugIn, TextListener {
 		int index = gd.getNextChoiceIndex();
 		bitDepth = typeToBitDepth(types[index]);
 		filter = gd.getNextString();
-		if (legacyRegex!=null)
-			filter = "("+legacyRegex+")";			
+		setFilterByRegex();		
 		gd.setSmartRecording(true);
 		this.start = (int)gd.getNextNumber();
 		countStr = gd.getNextString();
@@ -615,25 +763,15 @@ public class FolderOpener implements PlugIn, TextListener {
 		if (!Double.isNaN(count))
 			nFiles = (int)count;
 		this.step = (int)gd.getNextNumber();
-		if (this.step<1)
-			this.step = 1;
+		setStep();
 		this.scale = gd.getNextNumber();
-		if (this.scale<5.0) this.scale = 5.0;
-		if (this.scale>100.0) this.scale = 100.0;
+		setScale();
 		sortFileNames = gd.getNextBoolean();
-		if (!sortFileNames)
-			sortByMetaData = false;
+		setSortByMetadata();
 		openAsVirtualStack = gd.getNextBoolean();
-		if (openAsVirtualStack)
-			scale = 100.0;
+		setScale2();	
 		openAsSeparateImages = gd.getNextBoolean();
-		if (openAsSeparateImages)
-			openAsVirtualStack = true;
-		if (!IJ.macroRunning()) {
-			staticSortFileNames = sortFileNames;
-			if (!openAsSeparateImages)
-				staticOpenAsVirtualStack = openAsVirtualStack;
-		}
+		setImages2();
 		return true;
 	}
 	
