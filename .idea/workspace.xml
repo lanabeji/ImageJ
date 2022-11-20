@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ea622869-46b8-4393-90cd-9648e309f57a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/gui/OvalRoi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/plugin/GifWriter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/GifWriter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/plugin/frame/ColorThresholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/plugin/frame/ColorThresholder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/FloatProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ij/process/IntProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ij/process/IntProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,5 +62,16 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
