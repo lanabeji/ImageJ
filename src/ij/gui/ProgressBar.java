@@ -2,7 +2,6 @@ package ij.gui;
 
 import ij.macro.Interpreter;
 import java.awt.*;
-import java.awt.image.*;
 
 /**
  * This is the progress bar that is displayed in the lower right hand corner of

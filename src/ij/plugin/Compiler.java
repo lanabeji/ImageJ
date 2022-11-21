@@ -3,7 +3,6 @@ import ij.*;
 import ij.gui.*;
 import ij.io.*;
 import ij.plugin.frame.Editor;
-import ij.plugin.Macro_Runner;
 import ij.plugin.filter.PlugInFilter;
 import ij.plugin.filter.PlugInFilterRunner;
 import java.awt.Font;

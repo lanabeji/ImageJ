@@ -25,7 +25,6 @@
 package ij.plugin;
 
 import ij.*;
-import ij.text.*;
 import ij.plugin.frame.Editor;
 import ij.process.ImageProcessor;
 import ij.gui.GUI;

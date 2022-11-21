@@ -1,8 +1,6 @@
 package ij;
-import ij.util.Java2;
 import java.io.*;
 import java.util.*;
-import java.applet.*;
 import java.net.URL;
 import java.awt.*;
 import java.applet.Applet;
@@ -10,10 +8,8 @@ import ij.io.*;
 import ij.util.Tools;
 import ij.gui.*;
 import ij.plugin.filter.*;
-import ij.process.ImageConverter;
 import ij.plugin.Animator;
 import ij.process.FloatBlitter;
-import ij.plugin.GelAnalyzer;
 import ij.process.ColorProcessor;
 import ij.text.TextWindow;
 

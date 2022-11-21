@@ -1,13 +1,9 @@
 package ij.gui;
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.geom.*;
-import java.awt.event.KeyEvent;
 import java.util.*;
-import ij.*;
 import ij.process.*;
 import ij.measure.*;
-import ij.plugin.filter.Analyzer;
 import ij.util.Tools;
 import ij.util.FloatArray;
 

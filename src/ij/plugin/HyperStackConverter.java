@@ -2,11 +2,8 @@ package ij.plugin;
 import ij.*;
 import ij.gui.*;
 import ij.process.*;
-import ij.measure.Calibration;
 import ij.macro.Interpreter;
-import ij.io.FileInfo;
 import ij.plugin.frame.Recorder;
-import java.awt.image.ColorModel;
 
 
 /** Implements the "Stack to HyperStack", "RGB to HyperStack" 

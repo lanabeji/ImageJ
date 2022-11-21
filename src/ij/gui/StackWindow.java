@@ -1,9 +1,7 @@
 package ij.gui;
 import ij.*;
-import ij.measure.Calibration;
 import ij.plugin.frame.SyncWindows;
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.event.*;
 
 /** This class is an extended ImageWindow that displays stacks and hyperstacks. */

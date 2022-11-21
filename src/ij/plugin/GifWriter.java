@@ -3,9 +3,7 @@ import ij.*;
 import ij.io.*;
 import ij.gui.*;
 import ij.process.*;
-import ij.plugin.*;
 import java.io.*;
-import java.awt.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 

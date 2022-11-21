@@ -3,12 +3,7 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import ij.measure.*;
-import ij.plugin.ContrastEnhancer;
-import ij.measure.Calibration;
-import ij.util.Tools;
 import ij.plugin.frame.Recorder;
-import java.awt.*;
-import java.util.*;
 
 /** 
 This class implements the FFT, Inverse FFT and Redisplay Power Spectrum commands 

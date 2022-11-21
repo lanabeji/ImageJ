@@ -1,11 +1,7 @@
 package ij.plugin;
 import ij.*;
 import ij.gui.*;
-import ij.process.*;
-import ij.plugin.filter.Analyzer;
-import ij.measure.Measurements;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 
 

@@ -1,5 +1,4 @@
 package ij.macro;
-import ij.*;
 import java.io.*;
 
 /** This class converts an imageJ macro file file into a token stream. */

@@ -1,6 +1,5 @@
 package ij.gui;
 import java.awt.*;
-import ij.*;
 
 /** This is a custom layout manager that supports resizing of zoomed
 images. It's based on FlowLayout, but with vertical and centered flow. */

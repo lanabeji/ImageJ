@@ -1,10 +1,7 @@
 package ij.plugin;
 import ij.*;
 import ij.gui.*;
-import ij.util.*;
 import ij.measure.ResultsTable;
-import java.awt.*;
-import java.io.*;
 import java.util.*;
 
 /** Implements the Plugins/Hotkeys/Create Shortcut and Remove commands. */

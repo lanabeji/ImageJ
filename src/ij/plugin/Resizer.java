@@ -4,7 +4,6 @@ import ij.gui.*;
 import ij.process.*;
 import ij.measure.*;
 import ij.util.Tools;
-import ij.plugin.frame.Recorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;

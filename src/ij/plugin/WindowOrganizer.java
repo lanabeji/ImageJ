@@ -1,8 +1,6 @@
 package ij.plugin;
 import ij.*;
-import ij.process.*;
 import ij.gui.*;
-import ij.plugin.frame.ThresholdAdjuster;
 import java.awt.*;
 
 /** This class implements the Window menu's "Show All", "Main Window", "Cascade" and "Tile" commands. */

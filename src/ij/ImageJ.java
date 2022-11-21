@@ -1,13 +1,10 @@
 package ij;
 import ij.gui.*;
-import ij.process.*;
-import ij.io.*;
 import ij.plugin.*;
 import ij.plugin.filter.*;
 import ij.plugin.frame.*;
 import ij.text.*;
 import ij.macro.Interpreter;
-import ij.io.Opener;
 import ij.util.*;
 import java.awt.*;
 import java.util.*;
@@ -17,7 +14,6 @@ import java.net.*;
 import java.awt.image.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 /**
 This frame is the main ImageJ class.

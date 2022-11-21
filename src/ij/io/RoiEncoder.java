@@ -3,9 +3,6 @@ import ij.gui.*;
 import ij.process.FloatPolygon;
 import java.awt.*;
 import java.io.*;
-import java.util.*;
-import java.net.*;
-import java.awt.geom.*;
 
 
 /** Saves an ROI to a file or stream. RoiDecoder.java has a description of the file format.

@@ -3,8 +3,6 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import ij.io.*;
-import ij.plugin.Animator;
-import ij.util.Tools;
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;

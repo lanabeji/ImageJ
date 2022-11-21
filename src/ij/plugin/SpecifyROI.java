@@ -1,11 +1,8 @@
 package ij.plugin;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.*;
 import ij.*;
 import ij.gui.*;
-import ij.process.*;
-import ij.util.Tools;
 import ij.measure.Calibration;
 
 /**

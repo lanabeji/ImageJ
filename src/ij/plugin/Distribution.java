@@ -2,7 +2,6 @@ package ij.plugin;
 import ij.*;
 import ij.gui.*;
 import ij.process.*;
-import ij.plugin.PlugIn;
 import ij.measure.*;
 import ij.util.Tools;
 import java.util.*;

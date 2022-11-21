@@ -1,9 +1,7 @@
 package ij.plugin;
 import ij.*;
 import ij.text.*;
-import ij.util.*;
 import java.util.*;
-import java.awt.*;
 import java.awt.event.*;
 
 /** This class is used by the Plugins/Shortcuts/List Shortcuts 

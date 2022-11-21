@@ -1,22 +1,18 @@
 package ij.gui;
 
 import java.awt.*;
-import java.util.Properties;
 import java.awt.image.*;
 import ij.process.*;
 import ij.measure.*;
 import ij.plugin.*;
 import ij.plugin.frame.Recorder;
 import ij.plugin.frame.RoiManager;
-import ij.plugin.filter.Analyzer;
 import ij.plugin.tool.PlugInTool;
 import ij.macro.*;
 import ij.*;
 import ij.util.*;
-import ij.text.*;
 import java.awt.event.*;
 import java.util.*;
-import java.awt.geom.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 

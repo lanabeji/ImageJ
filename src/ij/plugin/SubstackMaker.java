@@ -3,7 +3,6 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import ij.plugin.frame.Recorder;
-import ij.io.FileInfo;
 import java.awt.Color;
 
 /**

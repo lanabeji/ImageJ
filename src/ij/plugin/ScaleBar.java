@@ -4,7 +4,6 @@ import ij.process.*;
 import ij.gui.*;
 import java.awt.*;
 import ij.measure.*;
-import java.awt.event.*;
 
 /** This plugin implements the Analyze/Tools/Scale Bar command.
  * Divakar Ramachandran added options to draw a background 

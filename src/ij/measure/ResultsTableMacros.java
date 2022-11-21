@@ -1,10 +1,8 @@
 package ij.measure;
 import ij.plugin.filter.Analyzer;
 import ij.plugin.frame.Recorder;
-import ij.plugin.*;
 import ij.*;
 import ij.gui.*;
-import ij.text.*;
 import java.awt.*;
 import java.awt.event.*;
 

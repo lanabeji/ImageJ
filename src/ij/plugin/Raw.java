@@ -1,6 +1,5 @@
 package ij.plugin;
 
-import java.awt.*;
 import java.io.*;
 import ij.*;
 import ij.io.*;

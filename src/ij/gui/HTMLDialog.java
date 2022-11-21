@@ -1,17 +1,13 @@
 package ij.gui;
 import ij.*;
-import ij.plugin.URLOpener;
 import ij.macro.MacroRunner;
 import ij.util.Java2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.text.*;
 import javax.swing.text.html.*;
 import javax.swing.event.HyperlinkListener;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkEvent.EventType;
-import java.net.URL;
 
 /** This is modal or non-modal dialog box that displays HTML formated text. */
 public class HTMLDialog extends JDialog implements ActionListener, KeyListener, HyperlinkListener, WindowListener {

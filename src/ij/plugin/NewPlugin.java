@@ -1,5 +1,4 @@
 package ij.plugin;
-import java.awt.*;
 import ij.*;
 import ij.gui.*;
 import ij.plugin.frame.Editor;

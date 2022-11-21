@@ -6,10 +6,8 @@ import ij.measure.*;
 import ij.plugin.frame.*;
 import ij.macro.Interpreter;
 import ij.plugin.filter.*;
-import ij.util.Tools;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.Vector;
 import java.awt.geom.*;
 
 

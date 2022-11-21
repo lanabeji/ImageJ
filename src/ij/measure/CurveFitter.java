@@ -4,7 +4,6 @@ import ij.gui.*;
 import ij.macro.*;
 import ij.util.Tools;
 import ij.util.IJMath;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.awt.Color;
 

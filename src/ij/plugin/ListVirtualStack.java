@@ -4,7 +4,6 @@ import ij.process.*;
 import ij.gui.*;
 import ij.io.*;
 import ij.util.Tools;
-import java.awt.*;
 import java.io.*;
 import java.util.*;
 

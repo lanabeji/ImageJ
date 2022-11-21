@@ -1,14 +1,7 @@
 package ij.plugin;
 import ij.IJ;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 /**
  * This plugin implements the File/Import/URL command and the commands in the Help menu that 

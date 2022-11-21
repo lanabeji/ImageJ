@@ -1,9 +1,7 @@
 package ij.plugin;
 import ij.*;
-import ij.plugin.filter.*;
 import ij.process.*;
 import ij.gui.*;
-import java.awt.*;
 
 /** This plugin implements the Image/Adjust/Canvas Size command.
 	It changes the canvas size of an image or stack without resizing the image.

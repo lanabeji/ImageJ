@@ -1,7 +1,6 @@
 package ij;
 import ij.process.*;
 import ij.io.*;
-import ij.gui.ImageCanvas;
 import ij.util.Tools;
 import ij.plugin.FolderOpener;
 import java.io.*;

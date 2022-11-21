@@ -1,9 +1,7 @@
 package ij.plugin;
 import ij.*;
 import ij.process.*;
-import ij.gui.*;
 import ij.io.*;
-import java.awt.*;
 import java.io.*;
 import java.util.Properties;
 

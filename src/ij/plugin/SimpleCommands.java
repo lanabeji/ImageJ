@@ -3,11 +3,9 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import ij.io.Opener;
-import ij.text.TextWindow;
 import ij.measure.ResultsTable;
 import ij.plugin.frame.Editor;
 import java.awt.Desktop;
-import java.awt.Frame;
 import java.io.File;
 
 /** This plugin implements the Plugins/Utilities/Unlock, Image/Rename

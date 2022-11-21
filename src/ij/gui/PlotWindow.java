@@ -8,9 +8,6 @@ import java.util.*;
 import ij.*;
 import ij.process.*;
 import ij.util.*;
-import ij.text.TextWindow;
-import ij.plugin.filter.Analyzer;
-import ij.plugin.filter.PlugInFilterRunner;
 import ij.measure.*;
 import ij.io.SaveDialog;
 

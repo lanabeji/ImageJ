@@ -8,8 +8,6 @@ import ij.plugin.filter.Analyzer;
 import ij.plugin.frame.Recorder;
 import ij.util.Java2;
 import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.KeyEvent;
 import java.util.*;
 import java.awt.geom.*;
 

@@ -6,7 +6,6 @@ import ij.plugin.Straightener;
 import ij.plugin.frame.Recorder;
 import ij.plugin.CalibrationBar;
 import java.awt.*;
-import java.awt.image.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.awt.event.*;

@@ -4,7 +4,6 @@ import ij.gui.*;
 import ij.macro.Interpreter;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.*;
 import java.util.Vector;
 
 /** This plugin implements the Edit/Options/Startup command. */

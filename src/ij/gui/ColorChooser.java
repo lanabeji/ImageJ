@@ -1,6 +1,5 @@
 package ij.gui;
 import ij.*;
-import ij.process.*;
 import ij.util.*;
 import ij.plugin.Colors;
 import java.awt.*;

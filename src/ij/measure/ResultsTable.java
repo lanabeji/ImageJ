@@ -1,7 +1,6 @@
 package ij.measure;
 import ij.*;
 import ij.plugin.filter.Analyzer;
-import ij.plugin.frame.Editor;
 import ij.text.*;
 import ij.process.*;
 import ij.gui.Roi;

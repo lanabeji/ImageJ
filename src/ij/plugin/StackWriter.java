@@ -1,7 +1,6 @@
 package ij.plugin;
 import java.awt.*;
 import java.io.*;
-import java.text.DecimalFormat;	
 import java.util.*;
 import ij.*;
 import ij.io.*;
@@ -9,7 +8,6 @@ import ij.gui.*;
 import ij.measure.Calibration;
 import ij.process.*;
 import ij.plugin.frame.Recorder;
-import ij.macro.Interpreter;
 import ij.util.Tools;
 
 /** This plugin, which saves the images in a stack as separate files, 

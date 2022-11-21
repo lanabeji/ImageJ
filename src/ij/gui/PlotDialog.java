@@ -1,6 +1,5 @@
 package ij.gui;
 import ij.*;
-import ij.process.*;
 import ij.plugin.frame.Recorder;
 import java.awt.*;
 import java.util.Vector;

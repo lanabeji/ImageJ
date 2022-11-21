@@ -13,7 +13,6 @@ import java.util.Locale;
 import ij.*;
 import ij.plugin.frame.*;
 import ij.plugin.MacroInstaller;
-import ij.plugin.RectToolOptions;
 import ij.plugin.tool.PlugInTool;
 import ij.plugin.tool.MacroToolRunner;
 import ij.macro.Program;

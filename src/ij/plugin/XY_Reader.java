@@ -3,8 +3,6 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import java.awt.*;
-import ij.measure.*;
-import ij.plugin.TextReader;
 
 /** This plugin implements the File/Import/XY Coordinates command. It reads a
 	two column text file, such as those created by File/Save As/XY Coordinates,

@@ -2,9 +2,7 @@ package ij.plugin;
 import ij.*;
 import ij.gui.*;
 import ij.process.*;
-import ij.measure.Calibration;
 import java.awt.*;
-import java.util.Vector;
 
 /** Implements the Image/HyperStacks/Reduce Dimensionality command. */
 public class HyperStackReducer implements PlugIn, DialogListener {

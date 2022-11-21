@@ -1,5 +1,4 @@
 package ij.gui;
-import ij.*;
 import java.awt.AWTEvent;
 
 /**

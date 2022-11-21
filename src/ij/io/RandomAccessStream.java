@@ -1,5 +1,4 @@
 package ij.io;
-import ij.IJ;
 import java.io.*;
 import java.util.Vector;
 

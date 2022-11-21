@@ -3,10 +3,7 @@ import ij.*;
 import ij.process.*;
 import ij.measure.*;
 import ij.plugin.frame.*;
-import ij.util.Tools;
-import ij.util.FloatArray;
 import java.awt.*;
-import java.awt.image.*;
 import java.awt.geom.*;
 import java.awt.event.*;
 

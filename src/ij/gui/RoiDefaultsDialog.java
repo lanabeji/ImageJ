@@ -1,5 +1,4 @@
 package ij.gui;
-import ij.*;
 import ij.plugin.*;
 import java.awt.*;
 import java.util.Vector;

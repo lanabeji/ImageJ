@@ -1,7 +1,5 @@
 package ij.gui;
 
-import java.awt.*;
-import java.awt.image.*;
 import ij.*;
 
 /** Freehand region of interest or freehand line of interest*/

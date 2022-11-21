@@ -5,7 +5,6 @@ import ij.process.*;
 import ij.gui.*;
 import java.awt.*;
 import java.awt.image.*;
-import java.math.*;
 import java.util.*;
 import ij.measure.*;
 

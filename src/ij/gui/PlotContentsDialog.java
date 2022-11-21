@@ -1,6 +1,5 @@
 package ij.gui;
 import ij.*;
-import ij.process.*;
 import ij.measure.CurveFitter;
 import ij.measure.Minimizer;
 import ij.text.TextWindow;
@@ -9,8 +8,6 @@ import ij.plugin.Colors;
 import ij.plugin.frame.Recorder;
 import ij.util.Tools;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.Arrays;
 import java.util.Vector;
 import java.util.ArrayList;
 

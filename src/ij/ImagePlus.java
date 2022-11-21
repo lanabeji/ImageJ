@@ -1,7 +1,6 @@
 package ij;
 import java.awt.*;
 import java.awt.image.*;
-import java.net.URL;
 import java.util.*;
 import ij.process.*;
 import ij.io.*;

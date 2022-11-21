@@ -1,7 +1,5 @@
 package ij.io;
 
-import java.awt.*;
-import java.awt.image.*;
 import java.io.*;
 import java.util.*;
 import ij.*;

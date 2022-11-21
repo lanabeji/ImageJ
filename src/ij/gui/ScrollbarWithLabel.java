@@ -1,5 +1,4 @@
 package ij.gui;
-import ij.ImageJ;
 import ij.IJ;
 import ij.Prefs;
 import java.awt.*;

@@ -1,6 +1,5 @@
 package ij.plugin;
 import ij.*;
-import ij.plugin.frame.Editor;
 import javax.script.*;
 
 /** Implements the text editor's Macros/Run command, and the

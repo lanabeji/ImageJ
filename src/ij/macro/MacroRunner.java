@@ -1,7 +1,5 @@
 package ij.macro;
 import ij.*;
-import ij.text.*;
-import ij.util.*;
 import ij.gui.ImageCanvas;
 import java.io.*;
 import java.awt.*;

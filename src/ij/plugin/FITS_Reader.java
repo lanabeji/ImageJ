@@ -1,5 +1,4 @@
 package ij.plugin;
-import java.awt.*;
 import java.io.*;
 import java.util.zip.GZIPInputStream;
 import ij.*;

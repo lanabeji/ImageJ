@@ -1,14 +1,9 @@
 package ij.macro;
 import ij.*;
-import ij.plugin.*;
 import ij.plugin.frame.*;
 import ij.gui.GUI;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Hashtable;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Set;
 
 /** This class implements the text editor's Macros/Find Functions command.
 	It was written by jerome.mutterer at ibmp.fr, and is based on Mark Longair's CommandFinder plugin.

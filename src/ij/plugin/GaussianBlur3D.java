@@ -2,7 +2,6 @@ package ij.plugin;
 import ij.*;
 import ij.process.*;
 import ij.gui.*;
-import java.awt.*;
 import ij.plugin.filter.*;
 
 public class GaussianBlur3D implements PlugIn {

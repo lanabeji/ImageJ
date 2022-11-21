@@ -2,7 +2,6 @@ package ij.plugin;
 import ij.*;
 import ij.io.*;
 import ij.process.*;
-import ij.gui.ImageWindow;
 import java.awt.*;
 import java.io.*;
 import java.awt.image.*;

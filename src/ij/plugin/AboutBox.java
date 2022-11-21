@@ -3,7 +3,6 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import java.awt.*;
-import ij.io.*;
 import java.net.URL;
 import java.awt.image.*;
 

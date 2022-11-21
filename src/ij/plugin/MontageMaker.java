@@ -4,8 +4,6 @@ import ij.gui.*;
 import ij.process.*;
 import ij.measure.*;
 import java.awt.*;
-import java.awt.image.*;
-import java.awt.event.*;
 
 /** Implements the Image/Stacks/Make Montage command. */
 public class MontageMaker implements PlugIn {

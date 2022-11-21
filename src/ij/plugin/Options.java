@@ -6,7 +6,6 @@ import ij.io.*;
 import ij.plugin.filter.*;
 import ij.plugin.frame.*;
 import ij.measure.ResultsTable;
-import java.awt.*;
 
 /** This plugin implements most of the commands
 	in the Edit/Options sub-menu. */

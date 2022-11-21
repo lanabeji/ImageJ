@@ -3,15 +3,12 @@ import ij.process.*;
 import ij.util.*;
 import ij.gui.ImageWindow;
 import ij.plugin.MacroInstaller;
-import ij.gui.Toolbar;
-import ij.macro.Interpreter;
 import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 import java.applet.Applet;
-import java.awt.event.*;
 import java.util.zip.*;
 
 /**

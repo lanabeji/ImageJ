@@ -5,9 +5,7 @@ import ij.gui.*;
 import ij.plugin.frame.Recorder;
 import java.awt.*;
 import java.awt.image.*;
-import ij.util.*;
 import ij.measure.*;
-import java.util.Vector;
 import java.awt.event.*;
 
 public class LUT_Editor implements PlugIn, ActionListener{

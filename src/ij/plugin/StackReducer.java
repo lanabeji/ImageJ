@@ -3,7 +3,6 @@ import ij.*;
 import ij.process.*;
 import ij.gui.*;
 import ij.measure.Calibration;
-import java.awt.*;
 
 /** This plugin implements the Image/Stacks/Tools/Reduce command. */
 public class StackReducer implements PlugIn {

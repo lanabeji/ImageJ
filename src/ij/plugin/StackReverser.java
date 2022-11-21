@@ -1,6 +1,5 @@
 package ij.plugin;
 import ij.*;
-import ij.process.*;
 import ij.measure.Calibration;
 
 /** This plugin implements the Image/Transform/Flip Z and
